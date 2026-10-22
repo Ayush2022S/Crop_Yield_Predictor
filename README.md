@@ -1,18 +1,8 @@
-# Crop_Yield_Predictor
-# 🌾 Crop Yield Prediction & Crop Recommendation System
+## 🌾 Crop Yield Predictor & Recommendation System
 
-A machine learning-powered web application that predicts crop yield (in tons per hectare) based on environmental and agricultural inputs. It also recommends the best crop to grow under the given conditions. Built using **Python, scikit-learn, and Streamlit**.
+An end-to-end, professional-grade machine learning project that predicts agricultural crop yields and recommends the optimal crop to plant based on environmental, soil, and farming data.
 
-
-## 🚀 Features
-
-- 📈 **Crop Yield Prediction** using environmental factors (rainfall, temperature, etc.)
-- 🌱 **Crop Recommendation** based on input conditions
-- 🧠 Trained on 100,000 stratified rows to ensure balanced crop variety
-- 💻 Interactive Streamlit web interface
-- 🗂️ Model and encoders saved with `joblib`
-
----
+This project features a robust data engineering pipeline, comparative model evaluation, and an interactive web dashboard powered by Streamlit. It also integrates Explainable AI (SHAP) to provide transparent, feature-level breakdowns of every prediction.
 
 ## 📊 Dataset
 
@@ -20,30 +10,77 @@ A machine learning-powered web application that predicts crop yield (in tons per
 - Contains regional, environmental, and agricultural features along with actual crop yields
 - Used for both training and evaluation of the model
 
+## 🚀 Key Features
 
-## 🧠 Machine Learning Model
+**Automated Machine Learning Pipeline**: Evaluates and compares multiple state-of-the-art algorithms (Random Forest, XGBoost, Gradient Boosting) to select the optimal predictive model.
 
-- Algorithm: `RandomForestRegressor`
-- Training set: 100,000 stratified samples across crop types
-- Input features:
-  - Region
-  - Soil Type
-  - Crop
-  - Rainfall (mm)
-  - Temperature (°C)
-  - Fertilizer Used (Yes/No)
-  - Irrigation Used (Yes/No)
-  - Weather Condition
-  - Days to Harvest
-- Output: `Yield_tons_per_hectare`
-- 
+**Explainable AI (XAI)**: Utilizes SHAP (SHapley Additive exPlanations) waterfall charts to visually explain how each factor (e.g., Rainfall, Fertilizer, Soil Type) positively or negatively impacts the predicted yield.
 
-## 🖥️ Tech Stack
+**Robust Data Engineering**: Implements ColumnTransformer and OneHotEncoder for seamless categorical encoding, alongside memory optimization techniques (float32 casting) to handle large datasets (1,000,000+ rows) efficiently without RAM exhaustion.
 
-| Tool         | Purpose               |
-|--------------|-----------------------|
-| Python       | Core programming      |
-| Pandas       | Data processing       |
-| scikit-learn | ML model training     |
-| Streamlit    | Web UI                |
-| joblib       | Model/encoder saving  |
+**Interactive Web Application**: A user-friendly Streamlit dashboard for real-time predictions and crop recommendations.
+
+## 🛠️ Technology Stack
+
+**Language**: Python
+
+**Machine Learning**: Scikit-Learn, XGBoost
+
+**Explainable AI**: SHAP
+
+**Data Processing & EDA**: Pandas, NumPy, Matplotlib, Seaborn
+
+**Deployment & UI**: Streamlit, Joblib
+
+## 📁 Project Structure
+
+Crop_Yield_Predictor/
+│
+
+├── crop_yield.csv                 # Raw agricultural dataset (1M rows)
+
+├── crop_yield_model.ipynb         # Model training, EDA, and evaluation notebook
+
+├── crop_yield_app.py              # Streamlit dashboard application
+
+├── requirements.txt               # Python dependencies
+
+│
+
+├── best_crop_yield_model.pkl      # Serialized XGBoost/Winning model
+
+├── preprocessor.pkl               # Serialized ColumnTransformer (OneHotEncoding)
+
+└── shap_explainer.pkl             # Serialized SHAP TreeExplainer
+
+
+## 📊 Exploratory Data Analysis (EDA) Insights
+
+During the data analysis phase, several critical drivers of crop yield were identified:
+
+Rainfall & Water: Rainfall (mm) showed a massive positive correlation with crop yield, heavily dominating the predictive weighting alongside Irrigation usage.
+
+Fertilizer: Farms utilizing fertilizer showed a significant statistical increase in average yield (5.40 tons/ha vs 3.89 tons/ha without).
+
+Data Cleaning: Physically impossible anomalies (e.g., negative yield values) were programmatically identified and removed prior to pipeline execution.
+
+## 💻 Installation & Setup
+
+To run this project locally on your machine, follow these steps:
+
+Step - 1: Clone this repository.
+
+Step - 2: Install the required dependencies:
+          pip install -r requirements.txt
+          
+Step - 3: Train the Model & Generate Artifacts
+
+Step - 4: Launch the Streamlit Web App:
+          streamlit run crop_yield_app.py
+
+
+## 🔮 Future Scope
+
+Integration of live weather APIs to pull real-time rainfall and temperature data based on the user's geographical location.
+
+Implementation of advanced hyperparameter tuning (e.g., RandomizedSearchCV with K-Fold Cross Validation) on larger cloud-compute instances.
